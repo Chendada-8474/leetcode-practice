@@ -1,24 +1,3 @@
-# class Solution:
-#     def longestPalindrome(self, words: list[str]) -> int:
-#         ans = 0
-#         redup = False
-#         while len(words) != 0:
-#             w = words[0]
-#             along = True
-#             for i, j in enumerate(words[1:]):
-#                 if w == j[1] + j[0]:
-#                     ans += 4
-#                     words.pop(i + 1)
-#                     along = False
-#                     break
-#             if not redup and along and w[0] == w[1]:
-#                 ans += 2
-#                 redup = True
-#             words.pop(0)
-#         return ans
-from typing import Counter
-
-
 class Solution:
     def longestPalindrome(self, words: list[str]) -> int:
         h = {}
@@ -38,10 +17,6 @@ class Solution:
         return ans
 
 
-words = ["gg", "gg"]
-
 words = ["ab", "ty", "yt", "lc", "cl", "ab"]
-
-
 answer = Solution()
 print(answer.longestPalindrome(words))
