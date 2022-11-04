@@ -1,48 +1,57 @@
 class Solution:
-    def shortestPath(self, grid: list[list[int]], k: int) -> int:
-        if len(grid) == 1 and len(grid[0]) == 1:
+    def shortestPath1(self, grid: list[list[int]], k: int) -> int:
+        w = len(grid)
+        h = len(grid[0])
+        if w == 1 and h == 1:
             return 0
         S = ((0, 1), (1, 0), (0, -1), (-1, 0))
-        tasks = [(0, 0, k)]
+        tasks = {(0, 0): {"k": k, "track": {(0, 0): None}}}
         steps = 1
         while len(tasks) != 0:
-
-            new_tasks = []
-            for tx, ty, kn in tasks:
-                print(tx, ty, kn, steps)
+            print(tasks, steps)
+            new_tasks = {}
+            for xy, info in tasks.items():
                 for x, y in S:
-                    x += tx
-                    y += ty
-                    if x < 0 or x == len(grid) or y < 0 or y == len(grid[0]):
+                    x += xy[0]
+                    y += xy[1]
+                    p = (x, y)
+                    if x < 0 or x == w or y < 0 or y == h:
                         continue
-                    if not grid[x][y]:
-                        if x == len(grid) - 1 and y == len(grid[0]) - 1:
+                    g = grid[x][y]
+                    if p in info["track"]:
+                        continue
+                    if not g:
+                        if p == (w - 1, h - 1):
                             return steps
-                        else:
-                            grid[x][y] += 1
-                            new_tasks.append((x, y, kn))
-                    elif kn and grid[x][y]:
-                        if x == len(grid) - 1 and y == len(grid[0]) - 1:
+                        elif (
+                            p in new_tasks
+                            and new_tasks[p]["k"] < info["k"]
+                            or p not in new_tasks
+                        ):
+                            info["track"][p] = None
+                            new_tasks[p] = info
+                    else:
+                        if p == (w - 1, h - 1) and info["k"]:
                             return steps
-                        elif (x, y) != (0, 0):
-                            new_tasks.append((x, y, kn - 1))
+                        elif info["k"] and (
+                            (p in new_tasks and new_tasks[p]["k"] < info["k"] - 1)
+                            or (p not in new_tasks)
+                        ):
+                            new_tasks[p] = {"k": info["k"] - 1, "track": {}}
+                            new_tasks[p]["track"][p] = None
             tasks = new_tasks
             steps += 1
         return -1
 
+    def shortestPath(self, grid: list[list[int]], k: int) -> int:
+        pass
 
-grid1 = [
-    [0, 0, 0],
-    [1, 0, 1],
-    [0, 0, 1],
-]
-grid2 = [
-    [0, 1, 0],
-    [0, 0, 0],
-    [0, 1, 1],
-]
-k = 1
+
+grid = [[0] + [1] * 2] + [[1] * 3] * 1 + [[1] * 2 + [0]]
+
+k = 3
+
 solution = Solution()
-print(solution.shortestPath(grid1, k))
-print("-" * 10)
-print(solution.shortestPath(grid2, k))
+print(solution.shortestPath1(grid, k))
+
+# print([1600] * 5)
