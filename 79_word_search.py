@@ -4,12 +4,12 @@ from collections import Counter
 class Solution:
     def _backtrack(self, x, y, index):
         if (
-            self.board[x][y] != self.word[index]
-            or self.route
+            (x, y) in self.route
             or x < 0
             or y < 0
             or x >= len(self.board)
             or y >= len(self.board[0])
+            or self.board[x][y] != self.word[index]
         ):
             return
         index += 1
