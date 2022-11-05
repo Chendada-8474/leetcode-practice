@@ -30,16 +30,15 @@ class Solution:
         self.route = set()
         self.index = 0
 
+        wc = Counter(word)
         bc = sum((Counter(b) for b in board), start=Counter())
-        bc.subtract(word)
-        if any(b < 0 for b in bc.values()):
+        if wc - bc:
             return False
 
         for ixb, xb in enumerate(board):
             for iyb, yb in enumerate(xb):
-                if yb == self.word[0]:
-                    if self._backtrack((ixb, iyb), self.index):
-                        return True
+                if self._backtrack((ixb, iyb), self.index):
+                    return True
 
         return False
 
