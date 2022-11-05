@@ -54,12 +54,14 @@ class Solution:
         return list(self.ans)
 
 
-board = [
-    ["o", "a", "a", "n"],
-    ["e", "t", "a", "e"],
-    ["i", "h", "k", "r"],
-    ["i", "f", "l", "v"],
-]
-words = ["oath", "pea", "eat", "rain"]
-solution = Solution()
-print(solution.findWords(board, words))
+if __name__ == "__main__":
+
+    board = [
+        ["o", "a", "a", "n"],
+        ["e", "t", "a", "e"],
+        ["i", "h", "k", "r"],
+        ["i", "f", "l", "v"],
+    ]
+    words = ["oath", "pea", "eat", "rain"]
+    solution = Solution()
+    print(solution.findWords(board, words))
