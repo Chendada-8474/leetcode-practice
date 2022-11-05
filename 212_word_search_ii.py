@@ -10,10 +10,10 @@ class Solution:
             self.ans.add(trie["E"])
             del trie["E"]
 
-            if len(trie) == 2 and "U" in trie:
-                while len(trie) == 2 and "U" in trie:
-                    del trie["U"][trie["C"]]
-                    trie = trie["U"]
+            if len(trie) == 2 and "P" in trie:
+                while len(trie) == 2 and "P" in trie:
+                    del trie["P"][trie["C"]]
+                    trie = trie["P"]
                 self.route.remove(b)
                 return
 
@@ -42,7 +42,7 @@ class Solution:
             n = trie
             for j in i:
                 if j not in n:
-                    n[j] = {"U": n, "C": j}
+                    n[j] = {"P": n, "C": j}
                 n = n[j]
             n["E"] = i
 
