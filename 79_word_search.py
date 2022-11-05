@@ -26,30 +26,16 @@ class Solution:
         self.S = ((1, 0), (0, 1), (0, -1), (-1, 0))
         self.route = set()
         self.index = 0
-
-        wc = Counter(word)
-        bc = sum((Counter(b) for b in board), start=Counter())
-        if wc - bc:
+        if Counter(word) - sum((Counter(b) for b in board), start=Counter()):
             return False
-
-        for ixb, xb in enumerate(board):
-            for iyb, yb in enumerate(xb):
-                if self._backtrack(ixb, iyb, self.index):
-                    return True
-
-        return False
+        return any(
+            any(self._backtrack(x, y, self.index) for y in range(len(board[0])))
+            for x in range(len(board))
+        )
 
 
 if __name__ == "__main__":
-    board = [
-        ["A", "A", "A", "A", "A", "A"],
-        ["A", "A", "A", "A", "A", "A"],
-        ["A", "A", "A", "A", "A", "A"],
-        ["A", "A", "A", "A", "A", "A"],
-        ["A", "A", "A", "A", "A", "A"],
-        ["A", "A", "A", "A", "A", "A"],
-    ]
-
-    word = "AAAAAAAAAAAABAA"
+    board = [["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]]
+    word = "ABCCED"
     solution = Solution()
     print(solution.exist(board, word))
