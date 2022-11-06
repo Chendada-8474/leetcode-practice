@@ -10,10 +10,8 @@ class Solution:
                     continue
             r = i[::-1]
             h[r] = h[r] + 1 if r in h else 1
-        for i in h:
-            if i[1] == i[0] and h[i] > 0:
-                ans += 2
-                break
+        if any(i[1] == i[0] and h[i] > 0 for i in h):
+            ans += 2
         return ans
 
 
