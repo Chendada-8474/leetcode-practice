@@ -1,8 +1,7 @@
 class Solution:
     def orderlyQueue(self, s: str, k: int) -> str:
-        s = list(s)
-        return "".join(
-            min(s[i:] + s[:i] for i in range(len(s))) if k == 1 else sorted(s)
+        return (
+            min(s[i:] + s[:i] for i in range(len(s))) if k == 1 else "".join(sorted(s))
         )
 
 
