@@ -8,7 +8,6 @@ class Solution:
         tasks = {(0, 0): {"k": k, "track": {(0, 0): None}}}
         steps = 1
         while len(tasks) != 0:
-            print(tasks, steps)
             new_tasks = {}
             for xy, info in tasks.items():
                 for x, y in S:
